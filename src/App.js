@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {Header, ExcelSheet} from './components'
+import {Header, Home} from './components'
 
 
 class App extends Component {
@@ -7,7 +7,7 @@ class App extends Component {
     return  (
   <div>
     <Header />
-    <ExcelSheet /> 
+    <Home />
     
   </div>
     )
