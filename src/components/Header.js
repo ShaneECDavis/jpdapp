@@ -64,6 +64,18 @@ class Header extends Component {
                     </ListItemIcon>
                     <ListItemText primary="Main" />
                   </ListItem>
+                  <ListItem component={Link} to="/RightTriangle" button>
+                    <ListItemIcon>
+                      <InboxIcon />
+                    </ListItemIcon>
+                    <ListItemText primary="Right Triangle" />
+                  </ListItem>
+                  <ListItem component={Link} to="/BeerFinder" button>
+                    <ListItemIcon>
+                      <InboxIcon />
+                    </ListItemIcon>
+                    <ListItemText primary="Beer Finder" />
+                  </ListItem>
                 </List>
               </Paper>
             </div>

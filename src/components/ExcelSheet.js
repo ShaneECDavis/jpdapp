@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from 'react'
+import React, { Component, Fragment, cloneElement } from 'react'
 import {
   Paper,
   Grid,
@@ -9,96 +9,101 @@ import {
 } from '@material-ui/core'
 
 class ExcelSheet extends Component {
-  handleSubmit(event) {}
+  state = {
+    ipm: '',
+    rpm: '',
+    diameter: '',
+    flutes: '',
+    ipt: '',
+    sfm: ''
+  }
+
+  handleChange = ({ target: { name, value } }) => {
+    this.setState({
+      [name]: value
+    })
+  }
+  handleSubmit(event) {
+    event.preventDefault()
+
+    this.setState({
+      sfm: (event.target.sfm.value * 3.82) / event.target.diameter.value
+    })
+    this.setState({
+      ipm: ((event.target.sfm.value * 3.82) / event.target.diameter.value) * event.target.ipt.value * event.target.flutes.value
+    })
+  }
 
   render() {
     return (
       <Fragment>
         <Grid
-                container
-                justify="center"
-                direction="column-reverse"
-                alignItems="center"
-              >
-        <Grid>
-          <Card raised style={{ width: '99vw' }}>
-            <form onSubmit={this.handleSubmit} style={styles.form}>
-              <Grid
-                container
-                justify="center"
-                direction="column-reverse"
-                alignItems="center"
-              >
-              <Grid
-                container
-                justify="center"
-                direction="column"
-                alignItems="center"
-              >
-                <Grid>
-
+          container
+          justify="center"
+          direction="column-reverse"
+          alignItems="center"
+        >
+          <Grid>
+            <Card raised style={{ width: '99vw' }}>
+              <form onSubmit={this.handleSubmit} style={styles.form}>
+                <FormGroup>
                   <TextField
+                    name="diameter"
                     variant="outlined"
                     style={styles.textField}
+                    value={this.state.diameter}
+                    onChange={this.handleChange}
                     label="Diameter"
                     placeholder="diameter"
                   />
-                </Grid>
-                <Grid>
+
                   <TextField
-                    variant="outlined"
-                    style={styles.textField}
-                    label="Flutes"
-                    placeholder="flutes"
-                  />
-                </Grid>
-                <Grid>
-                  <TextField
+                    name="ipt"
                     variant="outlined"
                     style={styles.textField}
                     label="IPT(C/L)"
                     placeholder="IPT(C/L)"
                   />
-                </Grid>
-                <Grid>
+
                   <TextField
+                    name="sfm"
                     variant="outlined"
                     style={styles.textField}
                     label="SFM"
                     placeholder="SFM"
                   />
-                </Grid>
-                </Grid>
-                <Grid>
+
                   <TextField
+                    name="rpm"
                     disabled
                     variant="outlined"
                     style={styles.changed}
+                    value={this.state.rpm}
                     label="RPM"
                     placeholder="RPM"
                   />
-                </Grid>
-                <Grid>
+
                   <TextField
+                    name="ipm"
                     disabled
                     variant="outlined"
+                    value={this.state.ipm}
                     style={styles.changed}
                     label="IPM"
                     placeholder="IPM"
                   />
-                </Grid>
-                <Grid container direction="column" alignItems="center">
-                  <Grid>
-                    <Button style={styles.button}>
-                      {' '}
-                      TADB
-                    </Button>
+
+                  <Grid container direction="column" alignItems="center">
+                    <Grid>
+                      <Button type="submit" style={styles.button}>
+                        TADB
+                      </Button>
+                    </Grid>
                   </Grid>
-                </Grid>
-              </Grid>
-            </form>
-          </Card>
-        </Grid>
+                </FormGroup>
+              </form>
+            </Card>
+          </Grid>
         </Grid>
       </Fragment>
     )
@@ -106,6 +111,10 @@ class ExcelSheet extends Component {
 }
 
 export default ExcelSheet
+
+// mapState = state =>({
+
+// })
 
 const styles = {
   form: {
@@ -133,3 +142,7 @@ const styles = {
     color: 'white'
   }
 }
+
+
+
+
