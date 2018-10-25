@@ -115,8 +115,8 @@ class ExcelSheet extends Component {
 }
 
 export default connect(
-  mapState,
-  mapProps
+ null,
+  null
 )(ExcelSheet)
 
 // mapState = state =>({

@@ -8,16 +8,16 @@ const IPM_CALC = 'IPM_CALC'
 const defaultState = []
 
 // Action Creators
-export const addWorkout = workout => ({
-  type: ADD_WORKOUT_EXERSISES,
-  workout
-})
+// export const addWorkout = workout => ({
+//   type: ADD_WORKOUT_EXERSISES,
+//   workout
+// })
 
 // Thunk Creators
 
 // Reducer
 
-export const exerciseReducer = (state = defaultState, action) => {
+export const excelSheetReducer = (state = defaultState, action) => {
   switch (action.type) {
     default:
       return state
