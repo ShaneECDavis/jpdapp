@@ -7,6 +7,7 @@ import {
   Card,
   Button
 } from '@material-ui/core'
+import { connect } from 'react-redux'
 
 class ExcelSheet extends Component {
   state = {
@@ -30,7 +31,10 @@ class ExcelSheet extends Component {
       sfm: (event.target.sfm.value * 3.82) / event.target.diameter.value
     })
     this.setState({
-      ipm: ((event.target.sfm.value * 3.82) / event.target.diameter.value) * event.target.ipt.value * event.target.flutes.value
+      ipm:
+        ((event.target.sfm.value * 3.82) / event.target.diameter.value) *
+        event.target.ipt.value *
+        event.target.flutes.value
     })
   }
 
@@ -142,7 +146,3 @@ const styles = {
     color: 'white'
   }
 }
-
-
-
-
