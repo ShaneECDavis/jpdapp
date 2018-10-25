@@ -114,7 +114,10 @@ class ExcelSheet extends Component {
   }
 }
 
-export default ExcelSheet
+export default connect(
+  mapState,
+  mapProps
+)(ExcelSheet)
 
 // mapState = state =>({
 
