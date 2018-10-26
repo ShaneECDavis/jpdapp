@@ -8,7 +8,7 @@ import {
   Button
 } from '@material-ui/core'
 import { connect } from 'react-redux'
-import {calcRPM} from '../store'
+import { calcRPM } from '../store/excelSheetReducer'
 
 class ExcelSheet extends Component {
   state = {
@@ -27,7 +27,13 @@ class ExcelSheet extends Component {
   }
   handleSubmit(event) {
     event.preventDefault()
-   // this.props.calcRPM({})
+    let sfm = event.target.sfm.value
+    let diameter = event.target.diameter.value
+    console.log(this, 'this.props -------------')
+    this.props.calcRPM({
+      sfm,
+      diameter
+    })
     this.setState({
       rpm: (event.target.sfm.value * 3.82) / event.target.diameter.value
     })
@@ -116,18 +122,16 @@ class ExcelSheet extends Component {
 }
 
 export default connect(
- null,
-  null
+  null,
+  mapProps
 )(ExcelSheet)
-
 
 // mapState = state =>({
 
 // })
 
-mapProps = dispatch => ({
-  calcRPM: dispatch(calcRPM())
-
+const mapProps = dispatch => ({
+  calcRPM: (data)=>dispatch(calcRPM(data))
 })
 
 const styles = {

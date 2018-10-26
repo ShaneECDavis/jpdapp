@@ -23,6 +23,9 @@ export const calcRPM = tableValues => ({
 
 export const excelSheetReducer = (state = defaultState, action) => {
   switch (action.type) {
+    case RPM_CALC: {
+      console.log(action.tableValues)
+    }
     default:
       return state
   }
