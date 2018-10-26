@@ -8,6 +8,10 @@ const IPM_CALC = 'IPM_CALC'
 const defaultState = []
 
 // Action Creators
+export const calcRPM = tableValues => ({
+  type: RPM_CALC,
+  tableValues
+})
 // export const addWorkout = workout => ({
 //   type: ADD_WORKOUT_EXERSISES,
 //   workout
