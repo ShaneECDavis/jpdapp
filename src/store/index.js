@@ -11,10 +11,11 @@ const middleware = composeWithDevTools(
 )
 
 const rootReducer = combineReducers({
-  excelSheet: excelSheetReducer
+  excelSheetReducer
 })
 
 const store = createStore(rootReducer, middleware)
 export default store
+
 export * from './excelSheetReducer'
 

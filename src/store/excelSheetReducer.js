@@ -1,15 +1,15 @@
 // create workout reducer
 import { rootRef } from './index'
 // Action Types
-const RPM_CALC = 'RPM_CALC'
-const IPM_CALC = 'IPM_CALC'
+const CALC = 'CALC'
 
 // Initial State
-const defaultState = []
+const defaultState = {rpm: 0,
+  ipm: 0}
 
 // Action Creators
-export const calcRPM = tableValues => ({
-  type: RPM_CALC,
+export const calc = tableValues => ({
+  type: CALC,
   tableValues
 })
 // export const addWorkout = workout => ({
@@ -23,9 +23,15 @@ export const calcRPM = tableValues => ({
 
 export const excelSheetReducer = (state = defaultState, action) => {
   switch (action.type) {
-    case RPM_CALC: {
-      console.log(action.tableValues)
+    case CALC: {
+      
+      let {sfm,ipt,diameter,flutes} = action.tableValues
+      console.log(sfm,ipt,diameter,flutes)
+      let rpm = (sfm * 3.82) / diameter
+      let ipm = flutes * ipt * rpm
+      return {rpm,ipm}
     }
+
     default:
       return state
   }
