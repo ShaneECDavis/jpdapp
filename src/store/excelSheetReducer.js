@@ -4,8 +4,10 @@ import { rootRef } from './index'
 const CALC = 'CALC'
 
 // Initial State
-const defaultState = {rpm: 0,
-  ipm: 0}
+const defaultState = {
+  rpm: 0,
+  ipm: 0
+}
 
 // Action Creators
 export const calc = tableValues => ({
@@ -24,12 +26,10 @@ export const calc = tableValues => ({
 export const excelSheetReducer = (state = defaultState, action) => {
   switch (action.type) {
     case CALC: {
-      
-      let {sfm,ipt,diameter,flutes} = action.tableValues
-      console.log(sfm,ipt,diameter,flutes)
+      let { sfm, ipt, diameter, flutes } = action.tableValues
       let rpm = (sfm * 3.82) / diameter
       let ipm = flutes * ipt * rpm
-      return {rpm,ipm}
+      return { rpm, ipm }
     }
 
     default:

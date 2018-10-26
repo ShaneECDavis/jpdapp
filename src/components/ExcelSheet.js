@@ -12,8 +12,6 @@ import { calc } from '../store/'
 
 class ExcelSheet extends Component {
   state = {
-    ipm: this.props.ipm,
-    rpm: this.props.rpm,
     diameter: '',
     flutes: '',
     ipt: '',
@@ -136,13 +134,13 @@ class ExcelSheet extends Component {
   }
 }
 
-const mapState = (state) => {
-  console.log(state , 'state ---------------')
-  let {rpm,ipm} = state.excelSheetReducer
+const mapState = state => {
+  let { rpm, ipm } = state.excelSheetReducer
   return {
-  rpm,
-  ipm
-}}
+    rpm,
+    ipm
+  }
+}
 
 const mapProps = dispatch => ({
   calcRPM: data => {
