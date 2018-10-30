@@ -174,7 +174,7 @@ const styles = {
     margin: 20,
     paddingRight: 5,
     background: '#b8ffb7',
-    color: 'white'
+    color: 'black'
   },
   button: {
     width: '85vw',

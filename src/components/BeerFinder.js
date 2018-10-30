@@ -9,6 +9,7 @@ class BeerFinder extends Component {
     return (
       <div>
         BeerFinder
+        Inster beer api
       </div>
     )
   }
