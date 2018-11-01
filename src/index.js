@@ -10,25 +10,6 @@ import { Provider } from 'react-redux'
 import { Router } from 'react-router-dom'
 import history from './history'
 
-import gql from 'graphql-tag' // start of a simple query
-
-const testQuery = gql`
-  {
-    beer(id: 3) {
-      name
-    }
-  }
-`
-const topBeersQuery = gql`
-  {
-    topBeers {
-      items {
-        name
-      }
-    }
-  }
-`
-const ratebeerapi = process.env.REACT_APP_RATEBEERAPI
 const client = new ApolloClient({
   uri: 'https://api.ratebeer.com/v1/api/graphql',
   headers: {
@@ -37,12 +18,6 @@ const client = new ApolloClient({
     'x-api-key': ratebeerapi
   }
 })
-
-client
-  .query({
-    query: topBeersQuery
-  })
-  .then(res => console.log(res, 'test query for single beer-----------'))
 /*
 'content-type: application/json' \
 -H 'accept: application/json' \
@@ -54,7 +29,6 @@ It provides 3 headers:
  2. accept with a value of 'application/json' to indicate we're expecting JSON format in response.
  3. x-api-key the value for which you'll need to supply the API Key you've received.
 */
-
 
 ReactDOM.render(
   <ApolloProvider client={client}>

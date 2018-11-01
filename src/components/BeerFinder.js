@@ -15,5 +15,12 @@ class BeerFinder extends Component {
   }
 }
 
+const mapState = state =>({
+  topbeers: state.topbeers
+})
+
+const mapDispatch = dispatch =>({
+  searchBeer: (beerSearch) => dispatch(searchBeer(beerSearch))
+})
 
 export default BeerFinder
