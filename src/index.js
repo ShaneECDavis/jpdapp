@@ -10,6 +10,15 @@ import { Provider } from 'react-redux'
 import { Router } from 'react-router-dom'
 import history from './history'
 
+import gql from 'graphql-tag' // start of a simple query
+
+const testQuery = gql`
+  {beer(id:3){name}}
+`
+
+client.query({
+  query: testQuery
+}).then(res => console.log(res))
 /*
 'content-type: application/json' \
 -H 'accept: application/json' \
