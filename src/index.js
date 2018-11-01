@@ -42,7 +42,7 @@ client
   .query({
     query: topBeersQuery
   })
-  .then(res => console.log(res, 'test query for single beer-----------909'))
+  .then(res => console.log(res, 'test query for single beer-----------'))
 /*
 'content-type: application/json' \
 -H 'accept: application/json' \
