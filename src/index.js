@@ -22,11 +22,14 @@ It provides 3 headers:
  3. x-api-key the value for which you'll need to supply the API Key you've received.
 */
 
+const ratebeerapi = process.env.REACT_APP_RATEBEERAPI
 const client = new ApolloClient({
   uri: 'https://api.ratebeer.com/v1/api/graphql',
-  headers: {'content-type':'application/json',
-  'accept': 'application/json',
-'x-api-key': process.env.RATEBEERAPI}
+  headers: {
+    'content-type': 'application/json',
+    accept: 'application/json',
+    'x-api-key': ratebeerapi
+  }
 })
 
 ReactDOM.render(

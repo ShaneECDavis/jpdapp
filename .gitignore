@@ -16,6 +16,8 @@
 .env.test.local
 .env.production.local
 secrets.js
+
+# api keys
 .env
 
 npm-debug.log*
