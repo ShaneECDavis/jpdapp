@@ -26,7 +26,7 @@ const client = new ApolloClient({
   uri: 'https://api.ratebeer.com/v1/api/graphql',
   headers: {'content-type':'application/json',
   'accept': 'application/json',
-'x-api-key':''}
+'x-api-key': process.env.RATEBEERAPI}
 })
 
 ReactDOM.render(

@@ -26,6 +26,8 @@ export const calc = tableValues => ({
 export const excelSheetReducer = (state = defaultState, action) => {
   switch (action.type) {
     case CALC: {
+      let test = process.env.TEST
+      console.log(process.env.TEST, 'test is happening right now stand by please for further instructions. ...............')
       let { sfm, ipt, diameter, flutes } = action.tableValues
       let rpm = (sfm * 3.82) / diameter
       let ipm = flutes * ipt * rpm
