@@ -105,7 +105,7 @@ const mapDispatch = dispatch =>({
 
 export default BeerFinder
 
-
+// going to hook in apollo here
 
 const styles = {
   form: {
