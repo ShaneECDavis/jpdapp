@@ -66,7 +66,7 @@ class BeerFinder extends Component {
                           subheader="September 14, 2016"
                         />
                         <CardMedia image={imageUrl} title={beer.name} />
-                        <img src={imageUrl}/> 
+                        <img style={styles.img} src={imageUrl}/> 
                         <CardContent>
                           <Typography component="p">
                             {beer.description}
@@ -139,135 +139,47 @@ class BeerFinder extends Component {
         </Query>
       </Card>
     )
+  }}
 
-    const styles = theme => ({
-      card: {
-        maxWidth: 400
-      },
-      media: {
-        height: 0,
-        paddingTop: '56.25%' // 16:9
-      },
-      actions: {
-        display: 'flex'
-      },
-      expand: {
-        transform: 'rotate(0deg)',
-        transition: theme.transitions.create('transform', {
-          duration: theme.transitions.duration.shortest
-        }),
-        marginLeft: 'auto',
-        [theme.breakpoints.up('sm')]: {
-          marginRight: -8
-        }
-      },
-      expandOpen: {
-        transform: 'rotate(180deg)'
-      },
-      avatar: {
-        backgroundColor: red[500]
-      }
-    })
+    // const styles = theme => ({
+    //   card: {
+    //     maxWidth: 400
+    //   },
+    //   media: {
+    //     height: 0,
+    //     paddingTop: '56.25%' // 16:9
+    //   },
+    //   actions: {
+    //     display: 'flex'
+    //   },
+    //   expand: {
+    //     transform: 'rotate(0deg)',
+    //     transition: theme.transitions.create('transform', {
+    //       duration: theme.transitions.duration.shortest
+    //     }),
+    //     marginLeft: 'auto',
+    //     [theme.breakpoints.up('sm')]: {
+    //       marginRight: -8
+    //     }
+    //   },
+    //   expandOpen: {
+    //     transform: 'rotate(180deg)'
+    //   },
+    //   avatar: {
+    //     backgroundColor: red[500]
+    //   }
+    // })
 
-    // return (
-    // <Fragment>
-    //   <Grid
-    //     container
-    //     justify="center"
-    //     direction="column-reverse"
-    //     alignItems="center"
-    //   >
-    //     <Grid>
-    //       <Card raised style={{ width: '99vw' }}>
-    //         <form onSubmit={this.handleSubmit.bind(this)} style={styles.form}>
-    //           <FormGroup>
-    //             <TextField
-    //               name="diameter"
-    //               variant="outlined"
-    //               style={styles.textField}
-    //               value={this.state.diameter}
-    //               onChange={this.handleChange}
-    //               label="Diameter"
-    //               placeholder="diameter"
-    //             />
-    //             <TextField
-    //               name="flutes"
-    //               variant="outlined"
-    //               style={styles.textField}
-    //               value={this.state.flutes}
-    //               onChange={this.handleChange}
-    //               label="flutes"
-    //               placeholder="flutes"
-    //             />
-    //             <TextField
-    //               name="ipt"
-    //               variant="outlined"
-    //               style={styles.textField}
-    //               value={this.state.ipt}
-    //               onChange={this.handleChange}
-    //               label="IPT(C/L)"
-    //               placeholder="IPT(C/L)"
-    //             />
-
-    //             <TextField
-    //               name="sfm"
-    //               variant="outlined"
-    //               style={styles.textField}
-    //               value={this.state.sfm}
-    //               onChange={this.handleChange}
-    //               label="SFM"
-    //               placeholder="SFM"
-    //             />
-
-    //             <TextField
-    //               name="rpm"
-    //               disabled
-    //               variant="outlined"
-    //               style={styles.changed}
-    //               value={this.props.rpm}
-    //               label="RPM"
-    //               placeholder="RPM"
-    //             />
-
-    //             <TextField
-    //               name="ipm"
-    //               disabled
-    //               variant="outlined"
-    //               value={this.props.ipm}
-    //               style={styles.changed}
-    //               label="IPM"
-    //               placeholder="IPM"
-    //             />
-
-    //             <Grid container direction="column" alignItems="center">
-    //               <Grid>
-    //                 <Button type="submit" style={styles.button}>
-    //                   TADB
-    //                 </Button>
-    //               </Grid>
-    //             </Grid>
-    //           </FormGroup>
-    //         </form>
-    //       </Card>
-    //     </Grid>
-    //   </Grid>
-    // </Fragment>
-  }
-}
-
-// const mapState = state =>({
-//   topbeers: state.topbeers
-// })
-
-// const mapDispatch = dispatch =>({
-//   searchBeer: (beerSearch) => dispatch(searchBeer(beerSearch))
-// })
+    
 
 export default BeerFinder
 
 // going to hook in apollo here  lets finish this now
 
 const styles = {
+  img: {
+    height: 120
+  },
   form: {
     justifiedContent: 'spaceBetween',
     width: '95vw',
