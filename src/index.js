@@ -10,6 +10,8 @@ import { Provider } from 'react-redux'
 import { Router } from 'react-router-dom'
 import history from './history'
 
+const ratebeerapi = process.env.REACT_APP_RATEBEERAPI
+
 const client = new ApolloClient({
   uri: 'https://api.ratebeer.com/v1/api/graphql',
   headers: {
