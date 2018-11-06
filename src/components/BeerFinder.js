@@ -25,6 +25,14 @@ class BeerFinder extends Component {
   }
 
   render() {
+    const searchBeerQuery = gql`{
+    query search($name:String){
+  beerSearch(query:$name){
+     items{
+      name
+    }
+}`
+
     const topBeersQuery = gql`
       {
         topBeers {
@@ -49,7 +57,7 @@ class BeerFinder extends Component {
               <div>
                 {data.topBeers.items.map(beer => {
                   console.log(beer.imageUrl)
-                  const imageUrl = beer.imageUrl.toString() 
+                  const imageUrl = beer.imageUrl.toString()
                   return (
                     <Card raised key={beer.name}>
                       <Typography>{beer.name} </Typography>
@@ -66,7 +74,7 @@ class BeerFinder extends Component {
                           subheader="September 14, 2016"
                         />
                         <CardMedia image={imageUrl} title={beer.name} />
-                        <img style={styles.img} src={imageUrl}/> 
+                        <img style={styles.img} src={imageUrl} />
                         <CardContent>
                           <Typography component="p">
                             {beer.description}
@@ -139,38 +147,37 @@ class BeerFinder extends Component {
         </Query>
       </Card>
     )
-  }}
+  }
+}
 
-    // const styles = theme => ({
-    //   card: {
-    //     maxWidth: 400
-    //   },
-    //   media: {
-    //     height: 0,
-    //     paddingTop: '56.25%' // 16:9
-    //   },
-    //   actions: {
-    //     display: 'flex'
-    //   },
-    //   expand: {
-    //     transform: 'rotate(0deg)',
-    //     transition: theme.transitions.create('transform', {
-    //       duration: theme.transitions.duration.shortest
-    //     }),
-    //     marginLeft: 'auto',
-    //     [theme.breakpoints.up('sm')]: {
-    //       marginRight: -8
-    //     }
-    //   },
-    //   expandOpen: {
-    //     transform: 'rotate(180deg)'
-    //   },
-    //   avatar: {
-    //     backgroundColor: red[500]
-    //   }
-    // })
-
-    
+// const styles = theme => ({
+//   card: {
+//     maxWidth: 400
+//   },
+//   media: {
+//     height: 0,
+//     paddingTop: '56.25%' // 16:9
+//   },
+//   actions: {
+//     display: 'flex'
+//   },
+//   expand: {
+//     transform: 'rotate(0deg)',
+//     transition: theme.transitions.create('transform', {
+//       duration: theme.transitions.duration.shortest
+//     }),
+//     marginLeft: 'auto',
+//     [theme.breakpoints.up('sm')]: {
+//       marginRight: -8
+//     }
+//   },
+//   expandOpen: {
+//     transform: 'rotate(180deg)'
+//   },
+//   avatar: {
+//     backgroundColor: red[500]
+//   }
+// })
 
 export default BeerFinder
 
