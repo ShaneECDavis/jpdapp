@@ -25,13 +25,15 @@ class BeerFinder extends Component {
   }
 
   render() {
-    const searchBeerQuery = gql`{
-    query search($name:String){
-  beerSearch(query:$name){
-     items{
-      name
+    const searchBeerQuery = gql`
+   query beerSearch($name: String){
+    beerSearch(query: $name){
+      items{
+        name
+      }
     }
-}`
+  }
+`
 
     const topBeersQuery = gql`
       {
@@ -185,6 +187,7 @@ export default BeerFinder
 
 const styles = {
   img: {
+    margin:50,
     height: 120
   },
   form: {
