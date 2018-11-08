@@ -1,5 +1,13 @@
-import React, { Component } from 'react'
-import { Card, TextField, FormGroup, Grid, Typography } from '@material-ui/core'
+import React, { Component, Fragment } from 'react'
+import {
+  Card,
+  TextField,
+  FormGroup,
+  Grid,
+  Typography,
+  FormControlLabel,
+  Switch
+} from '@material-ui/core'
 import gql from 'graphql-tag'
 import { Query } from 'react-apollo'
 
@@ -18,22 +26,29 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
 import MoreVertIcon from '@material-ui/icons/MoreVert'
 
 class BeerFinder extends Component {
-  state = { expanded: false }
+  state = {
+    expanded: false,
+    search: false
+  }
 
   handleExpandClick = () => {
     this.setState(state => ({ expanded: !state.expanded }))
   }
 
+  handleChange = () => event => {
+    this.setState({ search: !this.state.search })
+  }
+
   render() {
     const searchBeerQuery = gql`
-   query beerSearch($name: String){
-    beerSearch(query: $name){
-      items{
-        name
+      query beerSearch($name: String) {
+        beerSearch(query: $name) {
+          items {
+            name
+          }
+        }
       }
-    }
-  }
-`
+    `
 
     const topBeersQuery = gql`
       {
@@ -49,105 +64,127 @@ class BeerFinder extends Component {
       }
     `
     return (
-      <Card>
-        <Query query={topBeersQuery}>
-          {({ loading, error, data }) => {
-            if (loading) return 'loading ...'
-            if (error) return `Error! ${error.message}`
+      <Fragment>
+        <div>
+          <FormControlLabel
+            style={{ marginLeft: 10 }}
+            control={
+              <Switch
+                checked={this.state.checkedB}
+                onChange={this.handleChange()}
+                value="checkedB"
+                color="primary"
+              />
+            }
+            label="Beer Search"
+          />
+        </div>
 
-            return (
-              <div>
-                {data.topBeers.items.map(beer => {
-                  console.log(beer.imageUrl)
-                  const imageUrl = beer.imageUrl.toString()
-                  return (
-                    <Card raised key={beer.name}>
-                      <Typography>{beer.name} </Typography>
+        {this.state.search ? (
+          <div> search </div>
+        ) : (
+          <Card>
+            <Query query={topBeersQuery}>
+              {({ loading, error, data }) => {
+                if (loading) return 'loading ...'
+                if (error) return `Error! ${error.message}`
 
-                      <Card>
-                        <CardHeader
-                          avatar={<Avatar />}
-                          action={
-                            <IconButton>
-                              <MoreVertIcon />
-                            </IconButton>
-                          }
-                          title="Shrimp and Chorizo Paella"
-                          subheader="September 14, 2016"
-                        />
-                        <CardMedia image={imageUrl} title={beer.name} />
-                        <img style={styles.img} src={imageUrl} />
-                        <CardContent>
-                          <Typography component="p">
-                            {beer.description}
-                          </Typography>
-                        </CardContent>
-                        <CardActions disableActionSpacing>
-                          <IconButton aria-label="Add to favorites">
-                            <FavoriteIcon />
-                          </IconButton>
-                          <IconButton aria-label="Share">
-                            <ShareIcon />
-                          </IconButton>
-                          <IconButton
-                            onClick={this.handleExpandClick}
-                            aria-expanded={this.state.expanded}
-                            aria-label="Show more"
-                          >
-                            <ExpandMoreIcon />
-                          </IconButton>
-                        </CardActions>
-                        <Collapse
-                          in={this.state.expanded}
-                          timeout="auto"
-                          unmountOnExit
-                        >
-                          <CardContent>
-                            <Typography paragraph>Method:</Typography>
-                            <Typography paragraph>
-                              Heat 1/2 cup of the broth in a pot until
-                              simmering, add saffron and set aside for 10
-                              minutes.
-                            </Typography>
-                            <Typography paragraph>
-                              Heat oil in a (14- to 16-inch) paella pan or a
-                              large, deep skillet over medium-high heat. Add
-                              chicken, shrimp and chorizo, and cook, stirring
-                              occasionally until lightly browned, 6 to 8
-                              minutes. Transfer shrimp to a large plate and set
-                              aside, leaving chicken and chorizo in the pan. Add
-                              pimentón, bay leaves, garlic, tomatoes, onion,
-                              salt and pepper, and cook, stirring often until
-                              thickened and fragrant, about 10 minutes. Add
-                              saffron broth and remaining 4 1/2 cups chicken
-                              broth; bring to a boil.
-                            </Typography>
-                            <Typography paragraph>
-                              Add rice and stir very gently to distribute. Top
-                              with artichokes and peppers, and cook without
-                              stirring, until most of the liquid is absorbed, 15
-                              to 18 minutes. Reduce heat to medium-low, add
-                              reserved shrimp and mussels, tucking them down
-                              into the rice, and cook again without stirring,
-                              until mussels have opened and rice is just tender,
-                              5 to 7 minutes more. (Discard any mussels that
-                              don’t open.)
-                            </Typography>
-                            <Typography>
-                              Set aside off of the heat to let rest for 10
-                              minutes, and then serve.
-                            </Typography>
-                          </CardContent>
-                        </Collapse>
-                      </Card>
-                    </Card>
-                  )
-                })}
-              </div>
-            )
-          }}
-        </Query>
-      </Card>
+                return (
+                  <div>
+                    {data.topBeers.items.map(beer => {
+                      console.log(beer.imageUrl)
+                      const imageUrl = beer.imageUrl.toString()
+                      return (
+                        <Card raised key={beer.name}>
+                          <Typography>{beer.name} </Typography>
+
+                          <Card>
+                            <CardHeader
+                              avatar={<Avatar />}
+                              action={
+                                <IconButton>
+                                  <MoreVertIcon />
+                                </IconButton>
+                              }
+                              title="Shrimp and Chorizo Paella"
+                              subheader="September 14, 2016"
+                            />
+                            <CardMedia image={imageUrl} title={beer.name} />
+                            <img style={styles.img} src={imageUrl} />
+                            <CardContent>
+                              <Typography component="p">
+                                {beer.description}
+                              </Typography>
+                            </CardContent>
+                            <CardActions disableActionSpacing>
+                              <IconButton aria-label="Add to favorites">
+                                <FavoriteIcon />
+                              </IconButton>
+                              <IconButton aria-label="Share">
+                                <ShareIcon />
+                              </IconButton>
+                              <IconButton
+                                onClick={this.handleExpandClick}
+                                aria-expanded={this.state.expanded}
+                                aria-label="Show more"
+                              >
+                                <ExpandMoreIcon />
+                              </IconButton>
+                            </CardActions>
+                            <Collapse
+                              in={this.state.expanded}
+                              timeout="auto"
+                              unmountOnExit
+                            >
+                              <CardContent>
+                                <Typography paragraph>Method:</Typography>
+                                <Typography paragraph>
+                                  Heat 1/2 cup of the broth in a pot until
+                                  simmering, add saffron and set aside for 10
+                                  minutes.
+                                </Typography>
+                                <Typography paragraph>
+                                  Heat oil in a (14- to 16-inch) paella pan or a
+                                  large, deep skillet over medium-high heat. Add
+                                  chicken, shrimp and chorizo, and cook,
+                                  stirring occasionally until lightly browned, 6
+                                  to 8 minutes. Transfer shrimp to a large plate
+                                  and set aside, leaving chicken and chorizo in
+                                  the pan. Add pimentón, bay leaves, garlic,
+                                  tomatoes, onion, salt and pepper, and cook,
+                                  stirring often until thickened and fragrant,
+                                  about 10 minutes. Add saffron broth and
+                                  remaining 4 1/2 cups chicken broth; bring to a
+                                  boil.
+                                </Typography>
+                                <Typography paragraph>
+                                  Add rice and stir very gently to distribute.
+                                  Top with artichokes and peppers, and cook
+                                  without stirring, until most of the liquid is
+                                  absorbed, 15 to 18 minutes. Reduce heat to
+                                  medium-low, add reserved shrimp and mussels,
+                                  tucking them down into the rice, and cook
+                                  again without stirring, until mussels have
+                                  opened and rice is just tender, 5 to 7 minutes
+                                  more. (Discard any mussels that don’t open.)
+                                </Typography>
+                                <Typography>
+                                  Set aside off of the heat to let rest for 10
+                                  minutes, and then serve.
+                                </Typography>
+                              </CardContent>
+                            </Collapse>
+                          </Card>
+                        </Card>
+                      )
+                    })}
+                  </div>
+                )
+              }}
+            </Query>
+          </Card>
+        )}
+      </Fragment>
     )
   }
 }
@@ -187,7 +224,7 @@ export default BeerFinder
 
 const styles = {
   img: {
-    margin:50,
+    margin: 50,
     height: 120
   },
   form: {
