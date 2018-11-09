@@ -6,7 +6,8 @@ import {
   Grid,
   Typography,
   FormControlLabel,
-  Switch
+  Switch,
+  Button
 } from '@material-ui/core'
 import gql from 'graphql-tag'
 import { Query } from 'react-apollo'
@@ -39,6 +40,10 @@ class BeerFinder extends Component {
     this.setState({ search: !this.state.search })
   }
 
+  handleSubmit = event => {
+    event.preventDefault()
+    console.log(event.value.beer)
+  }
   render() {
     const searchBeerQuery = gql`
       query beerSearch($name: String) {
@@ -81,7 +86,33 @@ class BeerFinder extends Component {
         </div>
 
         {this.state.search ? (
-          <div> search </div>
+          <Fragment>
+            <Grid>
+              <Card raised style={{ width: '99vw' }}>
+                <form
+                  onSubmit={this.handleSubmit.bind(this)}
+                  style={styles.form}
+                >
+                  <FormGroup>
+                    <TextField
+                      name="beer"
+                      variant="outlined"
+                      style={styles.textField}
+                      value={this.state.beer}
+                      onChange={this.handleChange}
+                      label="Search"
+                      placeholder="Search for the beer"
+                    />
+                  
+                        <Button type="submit" style={styles.button}>
+                          TADB
+                        </Button>
+                     
+                  </FormGroup>
+                </form>
+              </Card>
+            </Grid>
+          </Fragment>
         ) : (
           <Card>
             <Query query={topBeersQuery}>
