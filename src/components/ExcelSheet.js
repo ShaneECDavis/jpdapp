@@ -24,29 +24,38 @@ class ExcelSheet extends Component {
     })
   }
   handleSubmit(event) {
+
     event.preventDefault()
     let sfm = event.target.sfm.value
     let diameter = event.target.diameter.value
     let ipt = event.target.ipt.value
     let flutes = event.target.flutes.value
+  
+
     this.props.calcRPM({
       sfm,
       ipt,
       diameter,
       flutes
     })
-    // this.setState({
-    //   rpm: (event.target.sfm.value * 3.82) / event.target.diameter.value
-    // })
-    // this.setState({
-    //   ipm:
-    //     ((event.target.sfm.value * 3.82) / event.target.diameter.value) *
-    //     event.target.ipt.value *
-    //     event.target.flutes.value
-    // })
+   
+
+
   }
 
   render() {
+//  form validation example 
+    // <TextField
+    //   hintText="Phone"
+    //   error={this.state.errorText.length === 0 ? false : true}
+    //   floatingLabelText="Phone"
+    //   name="phone"
+    //   helperText={this.state.errorText}
+    //   onChange={this.onChange.bind(this)} />
+
+
+
+
     return (
       <Fragment>
         <Grid
@@ -62,6 +71,8 @@ class ExcelSheet extends Component {
                   <TextField
                     name="diameter"
                     variant="outlined"
+                    error={false}
+                    helperText="Empty field"
                     style={styles.textField}
                     value={this.state.diameter}
                     onChange={this.handleChange}
