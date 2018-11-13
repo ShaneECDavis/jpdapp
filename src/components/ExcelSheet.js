@@ -8,20 +8,62 @@ import {
   Button
 } from '@material-ui/core'
 import { connect } from 'react-redux'
-import { calc } from '../store/'
+import { calc, reset } from '../store/'
 
 class ExcelSheet extends Component {
   state = {
     diameter: '',
     flutes: '',
     ipt: '',
-    sfm: ''
+    sfm: '',
+    diameterError: false,
+    flutesError: false,
+    iptError: false,
+    sfmError: false,
+    submitDisabled: false
   }
 
-  handleChange = ({ target: { name, value } }) => {
+  resetForm = () => {
     this.setState({
-      [name]: value
+      diameter: '',
+      flutes: '',
+      ipt: '',
+      sfm: '',
+      diameterError: false,
+      flutesError: false,
+      iptError: false,
+      sfmError: false,
+      submitDisabled: false
     })
+    this.props.reset()
+  }
+
+  validation(name, value) {
+    if (value === ''
+      || (isNaN(value))) {
+      console.log(this.state.diameterError, 'before', this)
+      this.setState({
+        ...this.state, [`${name}Error`]: true,
+        [name]: ''
+      })
+      console.log(this.state.diameterError, ' after')
+    } else {
+      this.setState({
+        [`${name}Error`]: false,
+          ...this.state, [name]: value
+        
+      })
+    }
+    let {diameterError,flutesError,iptError,sfmError} = this.state
+    if(diameterError === false, flutesError === false, iptError === false, sfmError === false){
+      this.setState({...this.state, submitDisabled: false})
+    }
+
+  }
+  // going to have to use prevState inside
+  handleChange = ({ target: { name, value } }) => {
+
+    this.validation(name, value)
   }
   handleSubmit(event) {
 
@@ -30,7 +72,7 @@ class ExcelSheet extends Component {
     let diameter = event.target.diameter.value
     let ipt = event.target.ipt.value
     let flutes = event.target.flutes.value
-  
+
 
     this.props.calcRPM({
       sfm,
@@ -38,13 +80,13 @@ class ExcelSheet extends Component {
       diameter,
       flutes
     })
-   
+
 
 
   }
 
   render() {
-//  form validation example 
+    //  form validation example 
     // <TextField
     //   hintText="Phone"
     //   error={this.state.errorText.length === 0 ? false : true}
@@ -71,8 +113,7 @@ class ExcelSheet extends Component {
                   <TextField
                     name="diameter"
                     variant="outlined"
-                    error={false}
-                    helperText="Empty field"
+                    error={this.state.diameterError}
                     style={styles.textField}
                     value={this.state.diameter}
                     onChange={this.handleChange}
@@ -82,6 +123,7 @@ class ExcelSheet extends Component {
                   <TextField
                     name="flutes"
                     variant="outlined"
+                    error={this.state.flutesError}
                     style={styles.textField}
                     value={this.state.flutes}
                     onChange={this.handleChange}
@@ -91,6 +133,7 @@ class ExcelSheet extends Component {
                   <TextField
                     name="ipt"
                     variant="outlined"
+                    error={this.state.iptError}
                     style={styles.textField}
                     value={this.state.ipt}
                     onChange={this.handleChange}
@@ -101,6 +144,7 @@ class ExcelSheet extends Component {
                   <TextField
                     name="sfm"
                     variant="outlined"
+                    error={this.state.sfmError}
                     style={styles.textField}
                     value={this.state.sfm}
                     onChange={this.handleChange}
@@ -130,8 +174,11 @@ class ExcelSheet extends Component {
 
                   <Grid container direction="column" alignItems="center">
                     <Grid>
-                      <Button type="submit" style={styles.button}>
-                        TADB
+                      <Button type="submit" style={(this.state.submitDisabled) ? styles.disabledButton : styles.button} disabled={this.state.submitDisabled}>
+                        SUBMIT
+                      </Button>
+                      <Button onClick={this.resetForm} style={styles.resetButton} >
+                        Reset
                       </Button>
                     </Grid>
                   </Grid>
@@ -156,6 +203,9 @@ const mapState = state => {
 const mapProps = dispatch => ({
   calcRPM: data => {
     dispatch(calc(data))
+  },
+  reset: () => {
+    dispatch(reset())
   }
 })
 
@@ -190,6 +240,18 @@ const styles = {
   button: {
     width: '85vw',
     background: '#3247ff',
+    margin: 20,
+    color: 'white'
+  },
+  resetButton: {
+    width: '85vw',
+    background: '#f2f254',
+    margin: 20,
+    color: 'white'
+  },
+  disabledButton: {
+    width: '85vw',
+    background: '#6d6d6d',
     margin: 20,
     color: 'white'
   }
