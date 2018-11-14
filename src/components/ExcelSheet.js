@@ -42,26 +42,22 @@ class ExcelSheet extends Component {
 
     if (value === ''
       || (isNaN(value))) {
-      console.log(this.state.diameterError, 'before', this)
+
       this.setState({
         [`${name}Error`]: true, [name]: value
       })
-    
-      console.log(this.state.diameterError, ' after')
     } else {
-      console.log(name, value)
+
       this.setState({
         [name]: value,
         [`${name}Error`]: false
       })
-    
     }
-
   }
 
   toggleSubmitDisabled = () => {
     let { diameterError, flutesError, iptError, sfmError } = this.state
-    console.log(diameterError, flutesError, iptError, sfmError ) 
+
     if (diameterError === true || flutesError === true || iptError === true || sfmError === true) {
       this.setState({ submitDisabled: true })
     } else {
@@ -71,9 +67,8 @@ class ExcelSheet extends Component {
 
   // going to have to use prevState inside
   handleChange = ({ target: { name, value } }) => {
-
     this.validation(name, value)
-    this.toggleSubmitDisabled()
+    this.forceUpdate(this.toggleSubmitDisabled)
   }
   handleSubmit(event) {
 
@@ -83,15 +78,12 @@ class ExcelSheet extends Component {
     let ipt = event.target.ipt.value
     let flutes = event.target.flutes.value
 
-
     this.props.calcRPM({
       sfm,
       ipt,
       diameter,
       flutes
     })
-
-
 
   }
 

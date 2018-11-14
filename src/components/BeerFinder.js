@@ -7,18 +7,17 @@ import {
   Typography,
   FormControlLabel,
   Switch,
-  Button
+  Button,
+  CardHeader,
+  CardMedia,
+  CardContent,
+  CardActions,
+  Collapse,
+  Avatar,
+  IconButton
 } from '@material-ui/core'
 import gql from 'graphql-tag'
 import { Query } from 'react-apollo'
-
-import CardHeader from '@material-ui/core/CardHeader'
-import CardMedia from '@material-ui/core/CardMedia'
-import CardContent from '@material-ui/core/CardContent'
-import CardActions from '@material-ui/core/CardActions'
-import Collapse from '@material-ui/core/Collapse'
-import Avatar from '@material-ui/core/Avatar'
-import IconButton from '@material-ui/core/IconButton'
 
 import red from '@material-ui/core/colors/red'
 import FavoriteIcon from '@material-ui/icons/Favorite'
@@ -114,6 +113,7 @@ class BeerFinder extends Component {
           </Fragment>
         ) : (
             <Card>
+              <Typography>Top Beers</Typography>
               <Query query={topBeersQuery}>
                 {({ loading, error, data }) => {
                   if (loading) return 'loading ...'
@@ -125,6 +125,7 @@ class BeerFinder extends Component {
                         console.log(beer.imageUrl)
                         const imageUrl = beer.imageUrl.toString()
                         return (
+                          <Fragment>
                           <Card raised key={beer.name}>
 
 
@@ -143,6 +144,7 @@ class BeerFinder extends Component {
                               </CardContent>
                             </Card>
                           </Card>
+                          </Fragment>
                         )
                       })}
                     </div>

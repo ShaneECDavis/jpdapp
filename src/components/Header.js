@@ -62,13 +62,13 @@ class Header extends Component {
                     <ListItemIcon>
                       <InboxIcon />
                     </ListItemIcon>
-                    <ListItemText primary="Main" />
+                    <ListItemText primary="Excel Sheet" />
                   </ListItem>
                   <ListItem component={Link} to="/RightTriangle" button>
                     <ListItemIcon>
                       <InboxIcon />
                     </ListItemIcon>
-                    <ListItemText primary="Right Triangle" />
+                    <ListItemText primary="under construction" />
                   </ListItem>
                   <ListItem component={Link} to="/BeerFinder" button>
                     <ListItemIcon>
