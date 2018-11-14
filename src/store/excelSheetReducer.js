@@ -37,7 +37,8 @@ export const excelSheetReducer = (state = defaultState, action) => {
       return { rpm, ipm }
     }
     case RESET: {
-      return defaultState
+      return {rpm: 0,
+        ipm: 0}
     }
     default:
       return state

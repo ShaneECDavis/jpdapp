@@ -20,7 +20,7 @@ class ExcelSheet extends Component {
     flutesError: false,
     iptError: false,
     sfmError: false,
-    submitDisabled: false
+    submitDisabled: true
   }
 
   resetForm = () => {
@@ -33,33 +33,44 @@ class ExcelSheet extends Component {
       flutesError: false,
       iptError: false,
       sfmError: false,
-      submitDisabled: false
+      submitDisabled: true
     })
     this.props.reset()
   }
 
   validation(name, value) {
+  
     if (value === ''
       || (isNaN(value))) {
       console.log(this.state.diameterError, 'before', this)
       this.setState({
-        ...this.state, [`${name}Error`]: true,
-        [name]: ''
-      })
-      console.log(this.state.diameterError, ' after')
-    } else {
-      this.setState({
-        [`${name}Error`]: false,
-          ...this.state, [name]: value
+        [`${name}Error`]: true, [name]: value
         
       })
+      this.toggleSubmitDisabled()
+      console.log(this.state.diameterError, ' after')
+    } else {
+      console.log(name, value)
+      this.setState({    
+         [name]: value,
+        [`${name}Error`]: false
+        
+      })
+      this.toggleSubmitDisabled()
     }
-    let {diameterError,flutesError,iptError,sfmError} = this.state
-    if(diameterError === false, flutesError === false, iptError === false, sfmError === false){
-      this.setState({...this.state, submitDisabled: false})
-    }
+        
+   }
+      
+     toggleSubmitDisabled = ()=>{
 
+    let {diameterError,flutesError,iptError,sfmError} = this.state
+    if (diameterError === true || flutesError === true || iptError === true || sfmError === true) {
+      this.setState({ submitDisabled: true })
+    } else {
+      this.setState({ submitDisabled: false })
+    }
   }
+
   // going to have to use prevState inside
   handleChange = ({ target: { name, value } }) => {
 
@@ -86,17 +97,6 @@ class ExcelSheet extends Component {
   }
 
   render() {
-    //  form validation example 
-    // <TextField
-    //   hintText="Phone"
-    //   error={this.state.errorText.length === 0 ? false : true}
-    //   floatingLabelText="Phone"
-    //   name="phone"
-    //   helperText={this.state.errorText}
-    //   onChange={this.onChange.bind(this)} />
-
-
-
 
     return (
       <Fragment>

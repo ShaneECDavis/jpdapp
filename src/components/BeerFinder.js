@@ -113,49 +113,44 @@ class BeerFinder extends Component {
             </Grid>
           </Fragment>
         ) : (
-          <Card>
-            <Query query={topBeersQuery}>
-              {({ loading, error, data }) => {
-                if (loading) return 'loading ...'
-                if (error) return `Error! ${error.message}`
+            <Card>
+              <Query query={topBeersQuery}>
+                {({ loading, error, data }) => {
+                  if (loading) return 'loading ...'
+                  if (error) return `Error! ${error.message}`
 
-                return (
-                  <div>
-                    {data.topBeers.items.map(beer => {
-                      console.log(beer.imageUrl)
-                      const imageUrl = beer.imageUrl.toString()
-                      return (
-                        <Card raised key={beer.name}>
-                          <Typography>{beer.name} </Typography>
+                  return (
+                    <div>
+                      {data.topBeers.items.map(beer => {
+                        console.log(beer.imageUrl)
+                        const imageUrl = beer.imageUrl.toString()
+                        return (
+                          <Card raised key={beer.name}>
 
-                          <Card>
-                            <CardHeader
-                              avatar={<Avatar />}
-                              action={
-                                <IconButton>
-                                  <MoreVertIcon />
-                                </IconButton>
-                              }
-                              title="Shrimp and Chorizo Paella"
-                              subheader="September 14, 2016"
-                            />
-                            <CardMedia image={imageUrl} title={beer.name} />
-                            <img style={styles.img} src={imageUrl} />
-                            <CardContent>
-                              <Typography component="p">
-                                {beer.description}
-                              </Typography>
-                            </CardContent>
+
+                            <Card>
+                              <CardHeader
+                                avatar={<Avatar />}
+                                title={beer.name}
+                                subheader="enter brewer name"
+                              />
+                              <CardMedia image={imageUrl} title={beer.name} />
+                              <img style={styles.img} src={imageUrl} />
+                              <CardContent>
+                                <Typography component="p">
+                                  {beer.description}
+                                </Typography>
+                              </CardContent>
+                            </Card>
                           </Card>
-                        </Card>
-                      )
-                    })}
-                  </div>
-                )
-              }}
-            </Query>
-          </Card>
-        )}
+                        )
+                      })}
+                    </div>
+                  )
+                }}
+              </Query>
+            </Card>
+          )}
       </Fragment>
     )
   }
