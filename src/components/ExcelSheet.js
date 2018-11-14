@@ -39,31 +39,29 @@ class ExcelSheet extends Component {
   }
 
   validation(name, value) {
-  
+
     if (value === ''
       || (isNaN(value))) {
       console.log(this.state.diameterError, 'before', this)
       this.setState({
         [`${name}Error`]: true, [name]: value
-        
       })
-      this.toggleSubmitDisabled()
+    
       console.log(this.state.diameterError, ' after')
     } else {
       console.log(name, value)
-      this.setState({    
-         [name]: value,
+      this.setState({
+        [name]: value,
         [`${name}Error`]: false
-        
       })
-      this.toggleSubmitDisabled()
+    
     }
-        
-   }
-      
-     toggleSubmitDisabled = ()=>{
 
-    let {diameterError,flutesError,iptError,sfmError} = this.state
+  }
+
+  toggleSubmitDisabled = () => {
+    let { diameterError, flutesError, iptError, sfmError } = this.state
+    console.log(diameterError, flutesError, iptError, sfmError ) 
     if (diameterError === true || flutesError === true || iptError === true || sfmError === true) {
       this.setState({ submitDisabled: true })
     } else {
@@ -75,6 +73,7 @@ class ExcelSheet extends Component {
   handleChange = ({ target: { name, value } }) => {
 
     this.validation(name, value)
+    this.toggleSubmitDisabled()
   }
   handleSubmit(event) {
 
