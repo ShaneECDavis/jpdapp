@@ -236,7 +236,7 @@ const styles = {
   },
   resetButton: {
     width: '85vw',
-    background: '#f2f254',
+    background: '#3a797c',
     margin: 20,
     color: 'white'
   },
