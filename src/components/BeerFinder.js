@@ -18,37 +18,66 @@ import {
 } from '@material-ui/core'
 import gql from 'graphql-tag'
 import { Query } from 'react-apollo'
-
 import red from '@material-ui/core/colors/red'
 import FavoriteIcon from '@material-ui/icons/Favorite'
 import ShareIcon from '@material-ui/icons/Share'
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
 import MoreVertIcon from '@material-ui/icons/MoreVert'
 
+// TODO: consolidate components ie beer cards
+
 class BeerFinder extends Component {
   state = {
     expanded: false,
-    search: false
+    search: false,
+    beerSearchValue: ''
   }
 
   handleExpandClick = () => {
     this.setState(state => ({ expanded: !state.expanded }))
   }
 
-  handleChange = () => event => {
+  handleSwitch = () => event => {
     this.setState({ search: !this.state.search })
+  }
+
+  handleChange = ({ target: { value } }) => {
+    this.setState({ beerSearchValue: value })
   }
 
   handleSubmit = event => {
     event.preventDefault()
-    console.log(event.value.beer)
   }
   render() {
+
+    let beerSearchValue = this.state.beerSearchValue
+
     const searchBeerQuery = gql`
-      query beerSearch($name: String) {
-        beerSearch(query: $name) {
+     query beerSearch($name: String) {
+        beerSearch(query: $name first: 3) {
+    			      
           items {
-            name
+            name,
+            brewer{
+              name,
+              state{
+                name
+              },
+              web
+            },
+            description,
+            abv,
+            ibu,
+            averageRating,
+            overallScore,
+            imageUrl,
+            purchase {
+              price,
+              store{
+                name,
+                url
+              }
+            }
           }
         }
       }
@@ -75,7 +104,7 @@ class BeerFinder extends Component {
             control={
               <Switch
                 checked={this.state.checkedB}
-                onChange={this.handleChange()}
+                onChange={this.handleSwitch()}
                 value="checkedB"
                 color="primary"
               />
@@ -94,7 +123,7 @@ class BeerFinder extends Component {
                 >
                   <FormGroup>
                     <TextField
-                      name="beer"
+                      name="beerSearchValue"
                       variant="outlined"
                       style={styles.textField}
                       value={this.state.beer}
@@ -110,6 +139,51 @@ class BeerFinder extends Component {
                 </form>
               </Card>
             </Grid>
+            <Grid><Card>
+              <Query query={searchBeerQuery} variables={{ name: beerSearchValue }}>
+                {({ data, loading, error }) => {
+                  console.log(data, 'data', )
+                  if (loading) return <div>loading... </div>;
+                  if (error) return <p>ERROR: {error.message}
+                  </p>;
+
+                  return (
+                   <Fragment>
+                      <div>
+                        {data.beerSearch.items.map(beer => {
+                          console.log(beer.imageUrl)
+                          const imageUrl = beer.imageUrl.toString()
+                          return (
+                            <Fragment>
+                              <Card raised key={beer.name}>
+
+
+                                <Card>
+                                  <CardHeader
+                                    avatar={<Avatar />}
+                                    title={beer.name}
+                                    subheader={beer.brewer.name}
+                                  />
+                                  <CardMedia image={imageUrl} title={beer.name} />
+                                  <img style={styles.img} src={imageUrl} />
+                                  <CardContent>
+                                    <Typography variant="subtitle1">abv: {beer.abv}</Typography>
+                                    <Typography component="p">
+                                      {beer.description}
+                                    </Typography>
+                                  </CardContent>
+                                </Card>
+                              </Card>
+                            </Fragment>
+                          )
+                        })}
+                      </div>
+                     </Fragment>
+                  );
+                }}
+              </Query>
+
+            </Card></Grid>
           </Fragment>
         ) : (
             <Card>
@@ -126,24 +200,24 @@ class BeerFinder extends Component {
                         const imageUrl = beer.imageUrl.toString()
                         return (
                           <Fragment>
-                          <Card raised key={beer.name}>
+                            <Card raised key={beer.name}>
 
 
-                            <Card>
-                              <CardHeader
-                                avatar={<Avatar />}
-                                title={beer.name}
-                                subheader="enter brewer name"
-                              />
-                              <CardMedia image={imageUrl} title={beer.name} />
-                              <img style={styles.img} src={imageUrl} />
-                              <CardContent>
-                                <Typography component="p">
-                                  {beer.description}
-                                </Typography>
-                              </CardContent>
+                              <Card>
+                                <CardHeader
+                                  avatar={<Avatar />}
+                                  title={beer.name}
+                                  subheader='brewer to come'
+                                />
+                                <CardMedia image={imageUrl} title={beer.name} />
+                                <img style={styles.img} src={imageUrl} />
+                                <CardContent>
+                                  <Typography component="p">
+                                    {beer.description}
+                                  </Typography>
+                                </CardContent>
+                              </Card>
                             </Card>
-                          </Card>
                           </Fragment>
                         )
                       })}
