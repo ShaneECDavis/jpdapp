@@ -1,7 +1,7 @@
 
 Jeremy Peters App
 
-loading in graphQL
+loading in graphQL and Apollo
 
 Apollo hooked in to use some features, with graphql learning and tyring to manage state without redux.
 
